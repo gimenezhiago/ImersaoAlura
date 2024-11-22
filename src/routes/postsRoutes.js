@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { listarPosts, postarNovoPost, uploadImagem } from "../controllers/postsControler.js";
+import { listarPosts, postarNovoPost, uploadImagem, atualiazarNovoPost } from "../controllers/postsControler.js";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -16,8 +16,9 @@ const upload = multer({ dest: "./uploads" , storage})
 const routes = (app) => {
   app.use(express.json());
   app.get("/posts", listarPosts);
-  app.post("/posts", postarNovoPost)
-  app.post("/upload", upload.single("imagem"), uploadImagem)
+  app.post("/posts", postarNovoPost);
+  app.post("/upload", upload.single("imagem"), uploadImagem);
+  app.put("/upload/:id", atualiazarNovoPost)
 };
 
 export default routes;
